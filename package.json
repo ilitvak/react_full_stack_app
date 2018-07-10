@@ -1,0 +1,29 @@
+{
+  "name": "react_full_stack_app",
+  "version": "1.0.0",
+  "description": "React_Full_Stack_app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilitvak/react_full_stack_app.git"
+  },
+  "author": "Irwin L",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilitvak/react_full_stack_app/issues"
+  },
+  "homepage": "https://github.com/ilitvak/react_full_stack_app#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3"
+  },
+  "dependencies": {
+    "babel-loader": "^7.1.5",
+    "babel-preset-react": "^6.24.1",
+    "html-webpack-plugin": "^3.2.0",
+    "web-dev-server": "^1.1.1",
+    "webpack": "^4.15.1"
+  }
+}
