@@ -1,10 +1,3 @@
-const HTMLWebpackPlugin = require('webpack-plugin');
-let HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-  template: __dirname + './app/index.html',
-  filename: 'index.html',
-  inject: 'body'
-});
-
 module.exports = {
   // have webpack transform all JSX code found in this entry point to ES5
   entry: __dirname + '/app/app.js',
@@ -27,5 +20,4 @@ module.exports = {
     filename: 'transformed.js',
     path: __dirname + '/build'
   },
-  plugins: [HTMLWebpackPluginConfig]
 };
