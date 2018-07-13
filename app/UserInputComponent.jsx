@@ -29,6 +29,7 @@ class UserInputComponent extends React.Component {
   }
 
   render(){
+
     return(
       <form action=""
         onKeyDown={(e) => this.handleUserSubmit(e, this.state.userInput)}>

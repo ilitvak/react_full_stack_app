@@ -10,10 +10,20 @@ class PokemonChartComponent extends React.Component {
     this.state = {
       PokemonArr: [],
       currentPokemon: '',
-      currentPokemonUrl: ''
+      currentPokemonUrl: '',
+      currentPokemonAtk: '',
+      currentPokemonDef:'',
+      currentPokemonhp: ''
     }
     
     this.makeAxiosCall = this.makeAxiosCall.bind(this);
+    this.favoritePokemon = this.favoritePokemon.bind(this);
+  }
+
+  favoritePokemon(e){
+    e.preventDefault();
+
+    console.log('You have selected your favorite pokemon: ', this.state.currentPokemon);
   }
 
 
@@ -26,6 +36,9 @@ class PokemonChartComponent extends React.Component {
       // makes copy of original array to not cause issues with state
       let searchPokemon = this.state.PokemonArr.slice();
       let currentPokemonImageUrl = response.data.sprites.front_default;
+      let pokemonAtk = response.data.stats[4].base_stat;
+      let pokemonDef = response.data.stats[3].base_stat;
+      let pokemonHP = response.data.stats[5].base_stat;
 
       // pushes currently searched pokemon into copied array
       searchPokemon.push(response.data.name);
@@ -34,7 +47,11 @@ class PokemonChartComponent extends React.Component {
       this.setState({
         PokemonArr: searchPokemon,
         currentPokemon: searchPokemon[searchPokemon.length - 1],
-        currentPokemonUrl: currentPokemonImageUrl
+        currentPokemonUrl: currentPokemonImageUrl,
+        currentPokemonAtk: pokemonAtk,
+        currentPokemonDef: pokemonDef,
+        currentPokemonhp: pokemonHP
+
       }, () => console.log(
       `Curr Pokemon: ${this.state.currentPokemon}
       | ArrOfPokemon: ${this.state.PokemonArr} | CurrPokemonUrl: ${this.state.currentPokemonUrl}`)) 
@@ -51,8 +68,12 @@ class PokemonChartComponent extends React.Component {
       <section className='main-pokemon-container'>
         <UserInputComponent makeAxiosCall={this.makeAxiosCall} />
         <PokemonBoxComponent 
+          favoritePokemon={this.favoritePokemon}
           currentPokemon={this.state.currentPokemon}
-          currentPokemonUrl={this.state.currentPokemonUrl}/>
+          currentPokemonUrl={this.state.currentPokemonUrl}
+          currentPokemonAtk={this.state.currentPokemonAtk}
+          currentPokemonDef={this.state.currentPokemonDef}
+          currentPokemonHp={this.state.currentPokemonhp}/>
       </section>
     )
   }

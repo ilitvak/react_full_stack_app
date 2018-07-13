@@ -9,7 +9,7 @@ class NavbarItemsComponent extends React.Component {
     return (
       <ul className='navbar-items'>
         <li>FAQ</li>
-        <li>PokeDex</li>
+        <li>Favorites</li>
         <li>Pokemon</li>
       </ul>
     )

@@ -20527,7 +20527,7 @@ var NavbarItemsComponent = function (_React$Component) {
         _react2.default.createElement(
           'li',
           null,
-          'PokeDex'
+          'Favorites'
         ),
         _react2.default.createElement(
           'li',
@@ -20632,14 +20632,25 @@ var PokemonChartComponent = function (_React$Component) {
     _this.state = {
       PokemonArr: [],
       currentPokemon: '',
-      currentPokemonUrl: ''
+      currentPokemonUrl: '',
+      currentPokemonAtk: '',
+      currentPokemonDef: '',
+      currentPokemonhp: ''
     };
 
     _this.makeAxiosCall = _this.makeAxiosCall.bind(_this);
+    _this.favoritePokemon = _this.favoritePokemon.bind(_this);
     return _this;
   }
 
   _createClass(PokemonChartComponent, [{
+    key: 'favoritePokemon',
+    value: function favoritePokemon(e) {
+      e.preventDefault();
+
+      console.log('You have selected your favorite pokemon: ', this.state.currentPokemon);
+    }
+  }, {
     key: 'makeAxiosCall',
     value: function makeAxiosCall(userInput) {
       var _this2 = this;
@@ -20651,6 +20662,9 @@ var PokemonChartComponent = function (_React$Component) {
         // makes copy of original array to not cause issues with state
         var searchPokemon = _this2.state.PokemonArr.slice();
         var currentPokemonImageUrl = response.data.sprites.front_default;
+        var pokemonAtk = response.data.stats[4].base_stat;
+        var pokemonDef = response.data.stats[3].base_stat;
+        var pokemonHP = response.data.stats[5].base_stat;
 
         // pushes currently searched pokemon into copied array
         searchPokemon.push(response.data.name);
@@ -20659,7 +20673,11 @@ var PokemonChartComponent = function (_React$Component) {
         _this2.setState({
           PokemonArr: searchPokemon,
           currentPokemon: searchPokemon[searchPokemon.length - 1],
-          currentPokemonUrl: currentPokemonImageUrl
+          currentPokemonUrl: currentPokemonImageUrl,
+          currentPokemonAtk: pokemonAtk,
+          currentPokemonDef: pokemonDef,
+          currentPokemonhp: pokemonHP
+
         }, function () {
           return console.log('Curr Pokemon: ' + _this2.state.currentPokemon + '\n      | ArrOfPokemon: ' + _this2.state.PokemonArr + ' | CurrPokemonUrl: ' + _this2.state.currentPokemonUrl);
         });
@@ -20677,8 +20695,12 @@ var PokemonChartComponent = function (_React$Component) {
         { className: 'main-pokemon-container' },
         _react2.default.createElement(_UserInputComponent2.default, { makeAxiosCall: this.makeAxiosCall }),
         _react2.default.createElement(_PokemonBoxComponents2.default, {
+          favoritePokemon: this.favoritePokemon,
           currentPokemon: this.state.currentPokemon,
-          currentPokemonUrl: this.state.currentPokemonUrl })
+          currentPokemonUrl: this.state.currentPokemonUrl,
+          currentPokemonAtk: this.state.currentPokemonAtk,
+          currentPokemonDef: this.state.currentPokemonDef,
+          currentPokemonHp: this.state.currentPokemonhp })
       );
     }
   }]);
@@ -20811,21 +20833,14 @@ var PokemonBoxComponent = function (_React$Component) {
     _classCallCheck(this, PokemonBoxComponent);
 
     console.log('Props being passed down: ', props);
-
-    // state goes here if any
-    var _this = _possibleConstructorReturn(this, (PokemonBoxComponent.__proto__ || Object.getPrototypeOf(PokemonBoxComponent)).call(this, props));
-
-    _this.state = {
-      clicked: false
-      // bind methods here
-    };return _this;
+    return _possibleConstructorReturn(this, (PokemonBoxComponent.__proto__ || Object.getPrototypeOf(PokemonBoxComponent)).call(this, props));
   }
-
-  // write methods here
 
   _createClass(PokemonBoxComponent, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'pokemon-grid-container' },
@@ -20837,7 +20852,12 @@ var PokemonBoxComponent = function (_React$Component) {
             { className: 'title' },
             this.props.currentPokemon
           ),
-          _react2.default.createElement('img', { src: '' + this.props.currentPokemonUrl, alt: '' })
+          _react2.default.createElement('img', {
+            src: '' + this.props.currentPokemonUrl,
+            alt: '',
+            onClick: function onClick(e) {
+              return _this2.props.favoritePokemon(e);
+            } })
         ),
         _react2.default.createElement(
           'div',
@@ -20846,6 +20866,32 @@ var PokemonBoxComponent = function (_React$Component) {
             'h2',
             { className: 'title' },
             'Pokemon Stats'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'pokemon-attributes' },
+            _react2.default.createElement(
+              'ul',
+              null,
+              _react2.default.createElement(
+                'li',
+                null,
+                'HP: ',
+                this.props.currentPokemonHp
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'ATK: ',
+                this.props.currentPokemonAtk
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                'DEF: ',
+                this.props.currentPokemonDef
+              )
+            )
           )
         )
       );
