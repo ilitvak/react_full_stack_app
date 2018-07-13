@@ -1,10 +1,9 @@
 import React from 'react';
-
+import NavbarItemsComponent from './NavbarItemsComponent.jsx';
 // class based component
 class NavbarComponent extends React.Component {
   constructor(props){
     super(props);
-
 
     // bind here
   }
@@ -13,8 +12,8 @@ class NavbarComponent extends React.Component {
 
   render(){
     return(
-      <div>
-        <p>Sup</p>
+      <div className='navbar-container'>
+        <NavbarItemsComponent />
       </div>
     )
   }
