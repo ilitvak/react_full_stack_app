@@ -28,7 +28,10 @@ let save = (pokemon) => {
     urlOfImage: pokemon.favPokemonUrl
   })
   newFav.save();
+}
 
+let deletePokemonItem = (pokemonToDelete) => {
+  Pokemon.find(pokemonToDelete).remove().exec();
 }
 
 let fetch = (callback) => {
@@ -43,6 +46,7 @@ let fetch = (callback) => {
 
 module.exports.save = save;
 module.exports.fetch = fetch;
+module.exports.deletePokemonItem = deletePokemonItem;
 
 
 

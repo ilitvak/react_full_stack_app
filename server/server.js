@@ -4,7 +4,8 @@ const path = require('path');
 const bodyparser = require('body-parser');
 const axios = require('axios');
 const save= require('../database/');
-const fetch = require('../database/')
+const fetch = require('../database/');
+const deletePokemonItem = require('../database/');
 
 // app is an instance of express
 var app = express();
@@ -47,10 +48,16 @@ app.get('/favorite', (req, res) => {
       res.send(err)
     }
     else {
-      console.log('Data RECIEVED: ', dataRecieved);
+      //console.log('Data RECIEVED: ', dataRecieved);
       res.send(dataRecieved)
     }
   });
+})
+
+app.post('/delete', (req, res) => {
+  deletePokemonItem.deletePokemonItem(req.body);
+  console.log('deleteing from db: ', req.body);
+  res.send(req.body)
 })
 
 

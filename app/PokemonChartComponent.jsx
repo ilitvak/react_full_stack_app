@@ -21,7 +21,6 @@ class PokemonChartComponent extends React.Component {
     
     this.makeAxiosCall = this.makeAxiosCall.bind(this);
     this.favoritePokemon = this.favoritePokemon.bind(this);
-    this.deletePokemon = this.deletePokemon.bind(this);
   }
 
   favoritePokemon(e){
@@ -77,11 +76,6 @@ class PokemonChartComponent extends React.Component {
       console.log('Err in post request ', err);
     })
   }
-
-  deletePokemon(e) {
-    console.log('Pokemon was clicked and to be deleted');
-  }
-  //methods go here
   
   render(){
     return(
@@ -98,6 +92,7 @@ class PokemonChartComponent extends React.Component {
           currentPokemonDef={this.state.currentPokemonDef}
           currentPokemonHp={this.state.currentPokemonhp}/>
         <FavoritePokemon 
+          deletePokemon={this.props.deletePokemon}
           renderFavoritesComponent={this.props.renderFavoritesComponent}
           favoritePokemonArr={this.props.favoritePokemonArr} />
       </section>

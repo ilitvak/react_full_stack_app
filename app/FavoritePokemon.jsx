@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FavoritePokemon = ( {favoritePokemonArr, renderFavoritesComponent} ) => {
+const FavoritePokemon = ( {favoritePokemonArr, renderFavoritesComponent, deletePokemon} ) => {
   console.log('Favorite Pokemon are: ', favoritePokemonArr, renderFavoritesComponent);
   if(renderFavoritesComponent){
     return(
@@ -8,7 +8,7 @@ const FavoritePokemon = ( {favoritePokemonArr, renderFavoritesComponent} ) => {
         <h2>Favorite Pokemon</h2>
         <ul>
           {favoritePokemonArr.map((pokemon, i) => 
-              <li key={i} className='fav-pokemon-li'>
+              <li key={i} className='fav-pokemon-li' onClick={(e) => deletePokemon(e, i)}>
                 <p>{pokemon.nameOfPokemon}</p>
                 <img src={`${pokemon.urlOfImage}`} alt=""/>
               </li>

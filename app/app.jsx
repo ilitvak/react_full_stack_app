@@ -13,6 +13,7 @@ class App extends React.Component {
       renderFavoritesComponent: false,
     }
     this.handleUserFavoriteClick = this.handleUserFavoriteClick.bind(this);
+    this.deletePokemon = this.deletePokemon.bind(this);
   }
 
   handleUserFavoriteClick(e) {
@@ -30,12 +31,35 @@ class App extends React.Component {
     })
   }
 
+  deletePokemon(e, index){
+    console.log('Pokemon Selected for Deletion: ', e.target);
+
+    let copyOfFavoriteArrays = this.state.favorites.slice();
+    let name = copyOfFavoriteArrays[index].nameOfPokemon;    
+    
+    copyOfFavoriteArrays.splice(index, 1);
+    this.setState({
+      favorites: copyOfFavoriteArrays
+    })
+
+      axios.post('/delete', { nameOfPokemon: name } )
+      .then( (res) => {
+        console.log('Axios post req to express, ', res);
+      })
+      .catch( (res) => {
+        console.log('Axios post req to delete ERR ', res);
+      })
+  }
+
+  
+
   render(){
     return (
       <div>
         <NavbarComponent handleUserFavoriteClick={this.handleUserFavoriteClick}/>
         <HeaderComponent />
-        <PokemonChartComponent 
+        <PokemonChartComponent
+          deletePokemon={this.deletePokemon} 
           handleUserFavoriteClick={this.state.handleUserFavoriteClick}
           renderFavoritesComponent={this.state.renderFavoritesComponent}
           favoritePokemonArr={this.state.favorites}/>
