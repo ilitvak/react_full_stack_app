@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 // Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/';
+var mongoDB = 'mongodb://127.0.0.1/pokemon';
 
 // set up mongoose connection to the mongoDB 
 mongoose.connect(mongoDB);
@@ -18,18 +18,25 @@ let pokemonSchema = mongoose.Schema({
   urlOfImage: String
 })
 
-let save = (pokemon, callback) => {
-  let newFav = new pokemonSchema({
+var Pokemon = mongoose.model('Pokemon', pokemonSchema);
+
+let save = (pokemon) => {
+  let newFav = new Pokemon({
     nameOfPokemon: pokemon.currentfavPokemon,
     urlOfImage: pokemon.favPokemonUrl
   })
   newFav.save();
 }
-let fetch = () => {
 
+let fetch = (callback) => {
+  Pokemon.find().sort().limit(5).exec( (err, data) =>  {
+    if(err) callback(err);
+    else {
+      callback(null, data)
+    }
+  })
 }
 
-var Pokemon = mongoose.model('Pokemon', pokemonSchema);
 
 module.exports.save = save;
 module.exports.fetch = fetch;

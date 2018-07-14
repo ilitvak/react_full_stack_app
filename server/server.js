@@ -4,6 +4,7 @@ const path = require('path');
 const bodyparser = require('body-parser');
 const axios = require('axios');
 const save= require('../database/');
+const fetch = require('../database/')
 
 // app is an instance of express
 var app = express();
@@ -37,9 +38,18 @@ app.post('/favorite', (req, res) => {
   save.save(pokemon);
   res.send();
 })
-// use a post method to send the users query to an API.
-// http://pokeapi.co/api/v2/pokemon/1/
-// app.post 
+
+
+// if my app gets a get request for favorites
+app.get('/favorite', (req, res) => {
+  fetch.fetch((err, dataRecieved) => {
+    if(err) res.send(err)
+    else {
+      console.log('Data RECIEVED: ', dataRecieved);
+      res.send(dataRecieved)
+    }
+  });
+})
 
 
 // use app.get later

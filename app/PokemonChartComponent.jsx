@@ -7,6 +7,7 @@ class PokemonChartComponent extends React.Component {
   constructor(props){
     super(props);
 
+    console.log('PokemonChart Props: ', props);
     this.state = {
       PokemonArr: [],
       currentPokemon: '',
@@ -79,7 +80,8 @@ class PokemonChartComponent extends React.Component {
     return(
       <section className='main-pokemon-container'>
         <UserInputComponent makeAxiosCall={this.makeAxiosCall} />
-        <PokemonBoxComponent 
+        <PokemonBoxComponent
+          favoritePokemonArr={this.props.favoritePokemonArr}
           favoritePokemon={this.favoritePokemon}
           currentPokemon={this.state.currentPokemon}
           currentPokemonUrl={this.state.currentPokemonUrl}

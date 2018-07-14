@@ -5,15 +5,12 @@ class NavbarComponent extends React.Component {
   constructor(props){
     super(props);
 
-    // bind here
   }
-
-  // methods here
 
   render(){
     return(
       <div className='navbar-container'>
-        <NavbarItemsComponent />
+        <NavbarItemsComponent handleUserFavoriteClick = {this.props.handleUserFavoriteClick} />
       </div>
     )
   }

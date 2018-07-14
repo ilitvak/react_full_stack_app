@@ -887,6 +887,10 @@ var _PokemonChartComponent = __webpack_require__(28);
 
 var _PokemonChartComponent2 = _interopRequireDefault(_PokemonChartComponent);
 
+var _axios = __webpack_require__(38);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -903,27 +907,39 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = {};
-    // write bindings for methods
-    _this.handleUserNavItemClick = _this.handleUserNavItemClick.bind(_this);
+    _this.state = {
+      favorites: []
+    };
+    _this.handleUserFavoriteClick = _this.handleUserFavoriteClick.bind(_this);
     return _this;
   }
 
-  // methods go here
-
-
   _createClass(App, [{
-    key: 'handleUserNavItemClick',
-    value: function handleUserNavItemClick(e) {}
+    key: 'handleUserFavoriteClick',
+    value: function handleUserFavoriteClick(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+
+      _axios2.default.get('/favorite', {}).then(function (res) {
+        _this2.setState({
+          favorites: res.data.slice(0)
+        }, function () {
+          return console.log('FAVORITES ARRAY: ', _this2.state.favorites);
+        });
+      }).catch(function (res) {
+        console.log('sending ERR for GET req to express');
+      });
+    }
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_NavbarComponent2.default, null),
+        _react2.default.createElement(_NavbarComponent2.default, { handleUserFavoriteClick: this.handleUserFavoriteClick }),
         _react2.default.createElement(_HeaderComponent2.default, null),
-        _react2.default.createElement(_PokemonChartComponent2.default, null)
+        _react2.default.createElement(_PokemonChartComponent2.default, { favoritePokemonArr: this.state.favorites })
       );
     }
   }]);
@@ -20457,11 +20473,7 @@ var NavbarComponent = function (_React$Component) {
     _classCallCheck(this, NavbarComponent);
 
     return _possibleConstructorReturn(this, (NavbarComponent.__proto__ || Object.getPrototypeOf(NavbarComponent)).call(this, props));
-
-    // bind here
   }
-
-  // methods here
 
   _createClass(NavbarComponent, [{
     key: 'render',
@@ -20469,7 +20481,7 @@ var NavbarComponent = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'navbar-container' },
-        _react2.default.createElement(_NavbarItemsComponent2.default, null)
+        _react2.default.createElement(_NavbarItemsComponent2.default, { handleUserFavoriteClick: this.props.handleUserFavoriteClick })
       );
     }
   }]);
@@ -20496,6 +20508,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(38);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20516,6 +20532,8 @@ var NavbarItemsComponent = function (_React$Component) {
   _createClass(NavbarItemsComponent, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'ul',
         { className: 'navbar-items' },
@@ -20526,7 +20544,9 @@ var NavbarItemsComponent = function (_React$Component) {
         ),
         _react2.default.createElement(
           'li',
-          null,
+          { onClick: function onClick(e) {
+              return _this2.props.handleUserFavoriteClick(e);
+            } },
           'Favorites'
         ),
         _react2.default.createElement(
@@ -20629,6 +20649,7 @@ var PokemonChartComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PokemonChartComponent.__proto__ || Object.getPrototypeOf(PokemonChartComponent)).call(this, props));
 
+    console.log('PokemonChart Props: ', props);
     _this.state = {
       PokemonArr: [],
       currentPokemon: '',
@@ -20704,6 +20725,7 @@ var PokemonChartComponent = function (_React$Component) {
         { className: 'main-pokemon-container' },
         _react2.default.createElement(_UserInputComponent2.default, { makeAxiosCall: this.makeAxiosCall }),
         _react2.default.createElement(_PokemonBoxComponents2.default, {
+          favoritePokemonArr: this.props.favoritePokemonArr,
           favoritePokemon: this.favoritePokemon,
           currentPokemon: this.state.currentPokemon,
           currentPokemonUrl: this.state.currentPokemonUrl,
@@ -20827,6 +20849,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _FavoritePokemon = __webpack_require__(58);
+
+var _FavoritePokemon2 = _interopRequireDefault(_FavoritePokemon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20841,11 +20867,27 @@ var PokemonBoxComponent = function (_React$Component) {
   function PokemonBoxComponent(props) {
     _classCallCheck(this, PokemonBoxComponent);
 
-    console.log('Props being passed down: ', props);
-    return _possibleConstructorReturn(this, (PokemonBoxComponent.__proto__ || Object.getPrototypeOf(PokemonBoxComponent)).call(this, props));
+    console.log('PokemonBox Props: ', props);
+
+    var _this = _possibleConstructorReturn(this, (PokemonBoxComponent.__proto__ || Object.getPrototypeOf(PokemonBoxComponent)).call(this, props));
+
+    _this.state = {
+      active: false
+    };
+    _this.selectPokemonAndFavoritePokemon = _this.selectPokemonAndFavoritePokemon.bind(_this);
+    return _this;
   }
 
   _createClass(PokemonBoxComponent, [{
+    key: 'selectPokemonAndFavoritePokemon',
+    value: function selectPokemonAndFavoritePokemon(e) {
+      e.preventDefault();
+      this.setState({
+        active: !this.state.active
+      });
+      this.props.favoritePokemon(e);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -20862,10 +20904,11 @@ var PokemonBoxComponent = function (_React$Component) {
             this.props.currentPokemon
           ),
           _react2.default.createElement('img', {
+            className: this.state.active ? 'item-favorited' : '',
             src: '' + this.props.currentPokemonUrl,
             alt: '',
             onClick: function onClick(e) {
-              return _this2.props.favoritePokemon(e);
+              return _this2.selectPokemonAndFavoritePokemon(e);
             } })
         ),
         _react2.default.createElement(
@@ -20902,7 +20945,8 @@ var PokemonBoxComponent = function (_React$Component) {
               )
             )
           )
-        )
+        ),
+        _react2.default.createElement(_FavoritePokemon2.default, { favoritePokemonArr: this.props.favoritePokemonArr })
       );
     }
   }]);
@@ -22482,6 +22526,33 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 57 */,
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FavoritePokemon = function FavoritePokemon(_ref) {
+  var favoritePokemon = _ref.favoritePokemon;
+
+  console.log('Favorite Pokemon are: ', favoritePokemon);
+  return _react2.default.createElement('ul', null);
+};
+
+exports.default = FavoritePokemon;
 
 /***/ })
 /******/ ]);

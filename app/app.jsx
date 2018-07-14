@@ -3,28 +3,37 @@ import ReactDOM from 'react-dom';
 import NavbarComponent from './NavbarComponent.jsx';
 import HeaderComponent from './HeaderComponent.jsx';
 import PokemonChartComponent from './PokemonChartComponent.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-  
+      favorites: []
     }
-    // write bindings for methods
-    this.handleUserNavItemClick = this.handleUserNavItemClick.bind(this);
+    this.handleUserFavoriteClick = this.handleUserFavoriteClick.bind(this);
   }
 
-  // methods go here
-  handleUserNavItemClick(e) {
-   
+  handleUserFavoriteClick(e) {
+    e.preventDefault();
+
+    axios.get('/favorite', {})
+    .then( (res) => {
+      this.setState({
+        favorites: res.data.slice(0)
+      }, () => console.log('FAVORITES ARRAY: ', this.state.favorites))
+    })
+    .catch( (res) => {
+      console.log('sending ERR for GET req to express');
+    })
   }
 
   render(){
     return (
       <div>
-        <NavbarComponent />
+        <NavbarComponent handleUserFavoriteClick={this.handleUserFavoriteClick}/>
         <HeaderComponent />
-        <PokemonChartComponent />
+        <PokemonChartComponent favoritePokemonArr={this.state.favorites}/>
       </div>
     ) 
   }

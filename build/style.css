@@ -97,6 +97,7 @@ form:hover input {
 /***************************/
 
 .pokemon-grid-container {
+  display: table;
   width: 80%;
   margin: 20px auto 0;
   clear: both;
@@ -141,5 +142,22 @@ img {
   font-weight: bold;
   margin-top: 10px;
 }
+
+.item-favorited {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { 
+    transform: scale(1); 
+  }
+  100% { 
+    transform: scale(1.2); 
+  }
+  0% { 
+    transform: scale(1); 
+  }
+}
+
 
 
