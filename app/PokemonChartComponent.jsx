@@ -1,6 +1,7 @@
 import React from 'react';
 import UserInputComponent from './UserInputComponent.jsx';
 import PokemonBoxComponent from './PokemonBoxComponents.jsx';
+import FavoritePokemon from './FavoritePokemon.jsx'
 import axios from 'axios';
 
 class PokemonChartComponent extends React.Component {
@@ -89,6 +90,9 @@ class PokemonChartComponent extends React.Component {
           currentPokemonAtk={this.state.currentPokemonAtk}
           currentPokemonDef={this.state.currentPokemonDef}
           currentPokemonHp={this.state.currentPokemonhp}/>
+        <FavoritePokemon 
+          renderFavoritesComponent={this.props.renderFavoritesComponent}
+          favoritePokemonArr={this.props.favoritePokemonArr} />
       </section>
     )
   }

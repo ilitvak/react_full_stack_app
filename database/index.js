@@ -14,7 +14,7 @@ db.once('open', function() {
 });
 
 let pokemonSchema = mongoose.Schema({
-  nameOfPokemon: String,
+  nameOfPokemon: {type: String, unique: true},
   urlOfImage: String
 })
 
@@ -22,6 +22,7 @@ var Pokemon = mongoose.model('Pokemon', pokemonSchema);
 
 let save = (pokemon) => {
   // save a new instance / collection
+
   let newFav = new Pokemon({
     nameOfPokemon: pokemon.currentfavPokemon,
     urlOfImage: pokemon.favPokemonUrl
@@ -31,7 +32,7 @@ let save = (pokemon) => {
 }
 
 let fetch = (callback) => {
-  Pokemon.find().sort().limit(5).exec( (err, data) =>  {
+  Pokemon.find().sort({nameOfPokemon: -1}).limit(10).exec( (err, data) =>  {
     if(err) callback(err);
     else {
       callback(null, data)

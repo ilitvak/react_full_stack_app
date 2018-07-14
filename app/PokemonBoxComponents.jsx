@@ -1,5 +1,4 @@
 import React from 'react';
-import FavoritePokemon from './FavoritePokemon.jsx';
 
 class PokemonBoxComponent extends React.Component {
   constructor(props){
@@ -36,13 +35,12 @@ class PokemonBoxComponent extends React.Component {
           <h2 className='title'>Pokemon Stats</h2>
           <div className='pokemon-attributes'>
             <ul>
-              <li>HP: {this.props.currentPokemonHp}</li>
-              <li>ATK: {this.props.currentPokemonAtk}</li>
-              <li>DEF: {this.props.currentPokemonDef}</li>
+              <li>Hp: {this.props.currentPokemonHp}</li>
+              <li>Atk: {this.props.currentPokemonAtk}</li>
+              <li>Def: {this.props.currentPokemonDef}</li>
             </ul>
           </div>
         </div>
-        <FavoritePokemon favoritePokemonArr={this.props.favoritePokemonArr} />
       </div>
     )
   }

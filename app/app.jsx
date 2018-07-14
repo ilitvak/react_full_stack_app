@@ -10,6 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       favorites: [],
+      renderFavoritesComponent: false
     }
     this.handleUserFavoriteClick = this.handleUserFavoriteClick.bind(this);
   }
@@ -20,7 +21,8 @@ class App extends React.Component {
     axios.get('/favorite', {})
     .then( (res) => {
       this.setState({
-        favorites: res.data
+        favorites: res.data,
+        renderFavoritesComponent: true
       })
     })
     .catch( (res) => {
@@ -34,6 +36,7 @@ class App extends React.Component {
         <NavbarComponent handleUserFavoriteClick={this.handleUserFavoriteClick}/>
         <HeaderComponent />
         <PokemonChartComponent 
+          renderFavoritesComponent={this.state.renderFavoritesComponent}
           favoritePokemonArr={this.state.favorites}/>
       </div>
     ) 

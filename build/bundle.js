@@ -908,7 +908,8 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      favorites: []
+      favorites: [],
+      renderFavoritesComponent: false
     };
     _this.handleUserFavoriteClick = _this.handleUserFavoriteClick.bind(_this);
     return _this;
@@ -923,7 +924,8 @@ var App = function (_React$Component) {
 
       _axios2.default.get('/favorite', {}).then(function (res) {
         _this2.setState({
-          favorites: res.data
+          favorites: res.data,
+          renderFavoritesComponent: true
         });
       }).catch(function (res) {
         console.log('sending ERR for GET req to express');
@@ -938,6 +940,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(_NavbarComponent2.default, { handleUserFavoriteClick: this.handleUserFavoriteClick }),
         _react2.default.createElement(_HeaderComponent2.default, null),
         _react2.default.createElement(_PokemonChartComponent2.default, {
+          renderFavoritesComponent: this.state.renderFavoritesComponent,
           favoritePokemonArr: this.state.favorites })
       );
     }
@@ -20628,6 +20631,10 @@ var _PokemonBoxComponents = __webpack_require__(30);
 
 var _PokemonBoxComponents2 = _interopRequireDefault(_PokemonBoxComponents);
 
+var _FavoritePokemon = __webpack_require__(58);
+
+var _FavoritePokemon2 = _interopRequireDefault(_FavoritePokemon);
+
 var _axios = __webpack_require__(38);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -20732,7 +20739,10 @@ var PokemonChartComponent = function (_React$Component) {
           currentPokemonUrl: this.state.currentPokemonUrl,
           currentPokemonAtk: this.state.currentPokemonAtk,
           currentPokemonDef: this.state.currentPokemonDef,
-          currentPokemonHp: this.state.currentPokemonhp })
+          currentPokemonHp: this.state.currentPokemonhp }),
+        _react2.default.createElement(_FavoritePokemon2.default, {
+          renderFavoritesComponent: this.props.renderFavoritesComponent,
+          favoritePokemonArr: this.props.favoritePokemonArr })
       );
     }
   }]);
@@ -20850,10 +20860,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _FavoritePokemon = __webpack_require__(58);
-
-var _FavoritePokemon2 = _interopRequireDefault(_FavoritePokemon);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20929,25 +20935,24 @@ var PokemonBoxComponent = function (_React$Component) {
               _react2.default.createElement(
                 'li',
                 null,
-                'HP: ',
+                'Hp: ',
                 this.props.currentPokemonHp
               ),
               _react2.default.createElement(
                 'li',
                 null,
-                'ATK: ',
+                'Atk: ',
                 this.props.currentPokemonAtk
               ),
               _react2.default.createElement(
                 'li',
                 null,
-                'DEF: ',
+                'Def: ',
                 this.props.currentPokemonDef
               )
             )
           )
-        ),
-        _react2.default.createElement(_FavoritePokemon2.default, { favoritePokemonArr: this.props.favoritePokemonArr })
+        )
       );
     }
   }]);
@@ -22547,29 +22552,39 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FavoritePokemon = function FavoritePokemon(_ref) {
-  var favoritePokemonArr = _ref.favoritePokemonArr;
+  var favoritePokemonArr = _ref.favoritePokemonArr,
+      renderFavoritesComponent = _ref.renderFavoritesComponent;
 
-  console.log('Favorite Pokemon are: ', favoritePokemonArr);
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'ul',
-      null,
-      favoritePokemonArr.map(function (pokemon, i) {
-        return _react2.default.createElement(
-          'li',
-          { key: i },
-          _react2.default.createElement(
-            'p',
-            null,
-            pokemon.nameOfPokemon
-          ),
-          _react2.default.createElement('img', { src: '' + pokemon.urlOfImage, alt: '' })
-        );
-      })
-    )
-  );
+  console.log('Favorite Pokemon are: ', favoritePokemonArr, renderFavoritesComponent);
+  if (renderFavoritesComponent) {
+    return _react2.default.createElement(
+      'div',
+      { className: 'favorite-pokemon-container' },
+      _react2.default.createElement(
+        'h2',
+        null,
+        'Favorite Pokemon'
+      ),
+      _react2.default.createElement(
+        'ul',
+        null,
+        favoritePokemonArr.map(function (pokemon, i) {
+          return _react2.default.createElement(
+            'li',
+            { key: i, className: 'fav-pokemon-li' },
+            _react2.default.createElement(
+              'p',
+              null,
+              pokemon.nameOfPokemon
+            ),
+            _react2.default.createElement('img', { src: '' + pokemon.urlOfImage, alt: '' })
+          );
+        })
+      )
+    );
+  } else {
+    return null;
+  }
 };
 
 exports.default = FavoritePokemon;
