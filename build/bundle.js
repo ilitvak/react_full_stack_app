@@ -923,9 +923,7 @@ var App = function (_React$Component) {
 
       _axios2.default.get('/favorite', {}).then(function (res) {
         _this2.setState({
-          favorites: res.data.slice(0)
-        }, function () {
-          return console.log('FAVORITES ARRAY: ', _this2.state.favorites);
+          favorites: res.data
         });
       }).catch(function (res) {
         console.log('sending ERR for GET req to express');
@@ -939,7 +937,8 @@ var App = function (_React$Component) {
         null,
         _react2.default.createElement(_NavbarComponent2.default, { handleUserFavoriteClick: this.handleUserFavoriteClick }),
         _react2.default.createElement(_HeaderComponent2.default, null),
-        _react2.default.createElement(_PokemonChartComponent2.default, { favoritePokemonArr: this.state.favorites })
+        _react2.default.createElement(_PokemonChartComponent2.default, {
+          favoritePokemonArr: this.state.favorites })
       );
     }
   }]);
@@ -20650,6 +20649,7 @@ var PokemonChartComponent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (PokemonChartComponent.__proto__ || Object.getPrototypeOf(PokemonChartComponent)).call(this, props));
 
     console.log('PokemonChart Props: ', props);
+
     _this.state = {
       PokemonArr: [],
       currentPokemon: '',
@@ -20723,7 +20723,8 @@ var PokemonChartComponent = function (_React$Component) {
       return _react2.default.createElement(
         'section',
         { className: 'main-pokemon-container' },
-        _react2.default.createElement(_UserInputComponent2.default, { makeAxiosCall: this.makeAxiosCall }),
+        _react2.default.createElement(_UserInputComponent2.default, {
+          makeAxiosCall: this.makeAxiosCall }),
         _react2.default.createElement(_PokemonBoxComponents2.default, {
           favoritePokemonArr: this.props.favoritePokemonArr,
           favoritePokemon: this.favoritePokemon,
@@ -20774,6 +20775,7 @@ var UserInputComponent = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (UserInputComponent.__proto__ || Object.getPrototypeOf(UserInputComponent)).call(this, props));
 
+    console.log('Props for user Input: ', props);
     _this.state = {
       userInput: ''
     };
@@ -20800,7 +20802,6 @@ var UserInputComponent = function (_React$Component) {
     value: function handleUserSubmit(e, userInput) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        // place axios request here
         // makeAxiosCall
         this.props.makeAxiosCall(userInput);
       }
@@ -20867,10 +20868,9 @@ var PokemonBoxComponent = function (_React$Component) {
   function PokemonBoxComponent(props) {
     _classCallCheck(this, PokemonBoxComponent);
 
-    console.log('PokemonBox Props: ', props);
-
     var _this = _possibleConstructorReturn(this, (PokemonBoxComponent.__proto__ || Object.getPrototypeOf(PokemonBoxComponent)).call(this, props));
 
+    console.log('PokemonBox Props: ', props);
     _this.state = {
       active: false
     };
@@ -20885,6 +20885,7 @@ var PokemonBoxComponent = function (_React$Component) {
       this.setState({
         active: !this.state.active
       });
+
       this.props.favoritePokemon(e);
     }
   }, {
@@ -22546,10 +22547,29 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FavoritePokemon = function FavoritePokemon(_ref) {
-  var favoritePokemon = _ref.favoritePokemon;
+  var favoritePokemonArr = _ref.favoritePokemonArr;
 
-  console.log('Favorite Pokemon are: ', favoritePokemon);
-  return _react2.default.createElement('ul', null);
+  console.log('Favorite Pokemon are: ', favoritePokemonArr);
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'ul',
+      null,
+      favoritePokemonArr.map(function (pokemon, i) {
+        return _react2.default.createElement(
+          'li',
+          { key: i },
+          _react2.default.createElement(
+            'p',
+            null,
+            pokemon.nameOfPokemon
+          ),
+          _react2.default.createElement('img', { src: '' + pokemon.urlOfImage, alt: '' })
+        );
+      })
+    )
+  );
 };
 
 exports.default = FavoritePokemon;

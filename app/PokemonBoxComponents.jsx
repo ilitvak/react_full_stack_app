@@ -3,19 +3,21 @@ import FavoritePokemon from './FavoritePokemon.jsx';
 
 class PokemonBoxComponent extends React.Component {
   constructor(props){
-    console.log('PokemonBox Props: ', props);
     super(props);
+    console.log('PokemonBox Props: ', props);
     this.state = {
       active: false
     }
     this.selectPokemonAndFavoritePokemon = this.selectPokemonAndFavoritePokemon.bind(this);
   }
 
+
   selectPokemonAndFavoritePokemon(e){
     e.preventDefault();
     this.setState({
       active: !this.state.active
     })
+
     this.props.favoritePokemon(e);
   }
 

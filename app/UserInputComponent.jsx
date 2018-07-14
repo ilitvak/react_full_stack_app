@@ -3,9 +3,9 @@ import React from 'react';
 class UserInputComponent extends React.Component {
   constructor(props){
     super(props);
-    
+    console.log('Props for user Input: ', props);
     this.state = {
-      userInput: '',
+      userInput: ''
     }
 
     this.handleUserInput = this.handleUserInput.bind(this);
@@ -22,7 +22,6 @@ class UserInputComponent extends React.Component {
   handleUserSubmit(e, userInput){
     if(e.key === 'Enter'){      
       e.preventDefault();
-      // place axios request here
       // makeAxiosCall
       this.props.makeAxiosCall(userInput);
     }

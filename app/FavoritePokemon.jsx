@@ -1,11 +1,18 @@
 import React from 'react';
 
-const FavoritePokemon = ({favoritePokemon}) => {
-  console.log('Favorite Pokemon are: ', favoritePokemon);
+const FavoritePokemon = ( {favoritePokemonArr} ) => {
+  console.log('Favorite Pokemon are: ', favoritePokemonArr);
   return(
-    <ul>
-
-    </ul>
+    <div>
+      <ul>
+        {favoritePokemonArr.map((pokemon, i) => 
+            <li key={i}>
+              <p>{pokemon.nameOfPokemon}</p>
+              <img src={`${pokemon.urlOfImage}`} alt=""/>
+            </li>
+        )}
+      </ul>
+    </div>
   )
 }
 

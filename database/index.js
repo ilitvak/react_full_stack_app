@@ -21,11 +21,13 @@ let pokemonSchema = mongoose.Schema({
 var Pokemon = mongoose.model('Pokemon', pokemonSchema);
 
 let save = (pokemon) => {
+  // save a new instance / collection
   let newFav = new Pokemon({
     nameOfPokemon: pokemon.currentfavPokemon,
     urlOfImage: pokemon.favPokemonUrl
   })
   newFav.save();
+
 }
 
 let fetch = (callback) => {

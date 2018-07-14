@@ -43,7 +43,9 @@ app.post('/favorite', (req, res) => {
 // if my app gets a get request for favorites
 app.get('/favorite', (req, res) => {
   fetch.fetch((err, dataRecieved) => {
-    if(err) res.send(err)
+    if(err) {
+      res.send(err)
+    }
     else {
       console.log('Data RECIEVED: ', dataRecieved);
       res.send(dataRecieved)

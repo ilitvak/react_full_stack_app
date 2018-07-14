@@ -6,15 +6,15 @@ import axios from 'axios';
 class PokemonChartComponent extends React.Component {
   constructor(props){
     super(props);
-
     console.log('PokemonChart Props: ', props);
+
     this.state = {
       PokemonArr: [],
       currentPokemon: '',
       currentPokemonUrl: '',
       currentPokemonAtk: '',
       currentPokemonDef:'',
-      currentPokemonhp: ''
+      currentPokemonhp: '',
     }
     
     this.makeAxiosCall = this.makeAxiosCall.bind(this);
@@ -79,7 +79,8 @@ class PokemonChartComponent extends React.Component {
   render(){
     return(
       <section className='main-pokemon-container'>
-        <UserInputComponent makeAxiosCall={this.makeAxiosCall} />
+        <UserInputComponent 
+          makeAxiosCall={this.makeAxiosCall} />
         <PokemonBoxComponent
           favoritePokemonArr={this.props.favoritePokemonArr}
           favoritePokemon={this.favoritePokemon}
