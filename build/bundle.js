@@ -22554,7 +22554,6 @@ var PokemonBoxComponent = function (_React$Component) {
                   this.props.currentPokemonDef
                 ),
                 this.props.currentPokemonAbilities.map(function (ability) {
-                  console.log('ability is: ', ability.ability.name);
                   return _react2.default.createElement(
                     'li',
                     null,

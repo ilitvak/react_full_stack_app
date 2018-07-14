@@ -40,7 +40,6 @@ class PokemonBoxComponent extends React.Component {
                 <li>Atk: {this.props.currentPokemonAtk}</li>
                 <li>Def: {this.props.currentPokemonDef}</li>
                 {this.props.currentPokemonAbilities.map((ability) => {
-                  console.log('ability is: ', ability.ability.name);
                   return <li>Skill: {ability.ability.name} </li>
                 })}
               </ul>

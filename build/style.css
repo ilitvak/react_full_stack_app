@@ -94,7 +94,7 @@ input:focus{
 }
 
 form:hover input {
-  border-color: #00b894;
+  border-color:#34495e;
 }
 
 /***************************/
