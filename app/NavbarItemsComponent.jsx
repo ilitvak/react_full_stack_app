@@ -11,7 +11,9 @@ class NavbarItemsComponent extends React.Component {
       <ul className='navbar-items'>
         <li>FAQ</li>
         <li onClick={(e) => this.props.handleUserFavoriteClick(e)}>Favorites</li>
-        <li>Pokemon</li>
+        <li>
+          <a href='https://www.pokemon.com/us/' target="_blank">Pokemon</a>
+        </li>
       </ul>
     )
   }

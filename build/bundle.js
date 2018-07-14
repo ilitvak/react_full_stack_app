@@ -21265,7 +21265,11 @@ var NavbarItemsComponent = function (_React$Component) {
         _react2.default.createElement(
           'li',
           null,
-          'Pokemon'
+          _react2.default.createElement(
+            'a',
+            { href: 'https://www.pokemon.com/us/', target: '_blank' },
+            'Pokemon'
+          )
         )
       );
     }
