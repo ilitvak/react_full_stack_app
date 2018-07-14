@@ -4,7 +4,6 @@ import NavbarItemsComponent from './NavbarItemsComponent.jsx';
 class NavbarComponent extends React.Component {
   constructor(props){
     super(props);
-
   }
 
   render(){

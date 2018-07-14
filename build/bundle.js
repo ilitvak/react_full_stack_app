@@ -940,6 +940,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(_NavbarComponent2.default, { handleUserFavoriteClick: this.handleUserFavoriteClick }),
         _react2.default.createElement(_HeaderComponent2.default, null),
         _react2.default.createElement(_PokemonChartComponent2.default, {
+          handleUserFavoriteClick: this.state.handleUserFavoriteClick,
           renderFavoritesComponent: this.state.renderFavoritesComponent,
           favoritePokemonArr: this.state.favorites })
       );
@@ -20663,11 +20664,13 @@ var PokemonChartComponent = function (_React$Component) {
       currentPokemonUrl: '',
       currentPokemonAtk: '',
       currentPokemonDef: '',
-      currentPokemonhp: ''
+      currentPokemonhp: '',
+      renderPokemonBoxComponent: false
     };
 
     _this.makeAxiosCall = _this.makeAxiosCall.bind(_this);
     _this.favoritePokemon = _this.favoritePokemon.bind(_this);
+    _this.deletePokemon = _this.deletePokemon.bind(_this);
     return _this;
   }
 
@@ -20713,14 +20716,19 @@ var PokemonChartComponent = function (_React$Component) {
           currentPokemonUrl: currentPokemonImageUrl,
           currentPokemonAtk: pokemonAtk,
           currentPokemonDef: pokemonDef,
-          currentPokemonhp: pokemonHP
-
+          currentPokemonhp: pokemonHP,
+          renderPokemonBoxComponent: true
         }, function () {
           return console.log('Curr Pokemon: ' + _this2.state.currentPokemon + '\n      | ArrOfPokemon: ' + _this2.state.PokemonArr + ' | CurrPokemonUrl: ' + _this2.state.currentPokemonUrl);
         });
       }).catch(function (err) {
         console.log('Err in post request ', err);
       });
+    }
+  }, {
+    key: 'deletePokemon',
+    value: function deletePokemon(e) {
+      console.log('Pokemon was clicked and to be deleted');
     }
     //methods go here
 
@@ -20733,6 +20741,7 @@ var PokemonChartComponent = function (_React$Component) {
         _react2.default.createElement(_UserInputComponent2.default, {
           makeAxiosCall: this.makeAxiosCall }),
         _react2.default.createElement(_PokemonBoxComponents2.default, {
+          renderPokemonBoxComponent: this.state.renderPokemonBoxComponent,
           favoritePokemonArr: this.props.favoritePokemonArr,
           favoritePokemon: this.favoritePokemon,
           currentPokemon: this.state.currentPokemon,
@@ -20899,61 +20908,63 @@ var PokemonBoxComponent = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'pokemon-grid-container' },
-        _react2.default.createElement(
+      if (this.props.renderPokemonBoxComponent) {
+        return _react2.default.createElement(
           'div',
-          { className: 'grid-2' },
+          { className: 'pokemon-grid-container' },
           _react2.default.createElement(
-            'h2',
-            { className: 'title' },
-            this.props.currentPokemon
-          ),
-          _react2.default.createElement('img', {
-            className: this.state.active ? 'item-favorited' : '',
-            src: '' + this.props.currentPokemonUrl,
-            alt: '',
-            onClick: function onClick(e) {
-              return _this2.selectPokemonAndFavoritePokemon(e);
-            } })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'grid-2' },
-          _react2.default.createElement(
-            'h2',
-            { className: 'title' },
-            'Pokemon Stats'
+            'div',
+            { className: 'grid-2' },
+            _react2.default.createElement(
+              'h2',
+              { className: 'title' },
+              this.props.currentPokemon
+            ),
+            _react2.default.createElement('img', {
+              className: this.state.active ? 'item-favorited' : '',
+              src: '' + this.props.currentPokemonUrl,
+              alt: '',
+              onClick: function onClick(e) {
+                return _this2.selectPokemonAndFavoritePokemon(e);
+              } })
           ),
           _react2.default.createElement(
             'div',
-            { className: 'pokemon-attributes' },
+            { className: 'grid-2' },
             _react2.default.createElement(
-              'ul',
-              null,
+              'h2',
+              { className: 'title' },
+              'Pokemon Stats'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'pokemon-attributes' },
               _react2.default.createElement(
-                'li',
+                'ul',
                 null,
-                'Hp: ',
-                this.props.currentPokemonHp
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                'Atk: ',
-                this.props.currentPokemonAtk
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                'Def: ',
-                this.props.currentPokemonDef
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  'Hp: ',
+                  this.props.currentPokemonHp
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  'Atk: ',
+                  this.props.currentPokemonAtk
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  'Def: ',
+                  this.props.currentPokemonDef
+                )
               )
             )
           )
-        )
-      );
+        );
+      } else return null;
     }
   }]);
 

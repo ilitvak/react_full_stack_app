@@ -16,10 +16,12 @@ class PokemonChartComponent extends React.Component {
       currentPokemonAtk: '',
       currentPokemonDef:'',
       currentPokemonhp: '',
+      renderPokemonBoxComponent: false
     }
     
     this.makeAxiosCall = this.makeAxiosCall.bind(this);
     this.favoritePokemon = this.favoritePokemon.bind(this);
+    this.deletePokemon = this.deletePokemon.bind(this);
   }
 
   favoritePokemon(e){
@@ -64,8 +66,8 @@ class PokemonChartComponent extends React.Component {
         currentPokemonUrl: currentPokemonImageUrl,
         currentPokemonAtk: pokemonAtk,
         currentPokemonDef: pokemonDef,
-        currentPokemonhp: pokemonHP
-
+        currentPokemonhp: pokemonHP,
+        renderPokemonBoxComponent: true
       }, () => console.log(
       `Curr Pokemon: ${this.state.currentPokemon}
       | ArrOfPokemon: ${this.state.PokemonArr} | CurrPokemonUrl: ${this.state.currentPokemonUrl}`)) 
@@ -75,6 +77,10 @@ class PokemonChartComponent extends React.Component {
       console.log('Err in post request ', err);
     })
   }
+
+  deletePokemon(e) {
+    console.log('Pokemon was clicked and to be deleted');
+  }
   //methods go here
   
   render(){
@@ -83,6 +89,7 @@ class PokemonChartComponent extends React.Component {
         <UserInputComponent 
           makeAxiosCall={this.makeAxiosCall} />
         <PokemonBoxComponent
+          renderPokemonBoxComponent={this.state.renderPokemonBoxComponent}
           favoritePokemonArr={this.props.favoritePokemonArr}
           favoritePokemon={this.favoritePokemon}
           currentPokemon={this.state.currentPokemon}
