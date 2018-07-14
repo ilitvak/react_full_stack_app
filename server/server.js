@@ -62,9 +62,9 @@ app.post('/delete', (req, res) => {
 
 
 // use app.get later
-
+let port = process.env.PORT || 5000;
 // listen to port 5000
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log('Dev app listening on port: 5000');
 })
 
