@@ -2,7 +2,9 @@
 var mongoose = require('mongoose');
 
 // Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1/pokemon';
+//mongodb://<dbuser>:<dbpassword>@ds135421.mlab.com:35421/mvp-pokemon
+//var mongoDB = 'mongodb://127.0.0.1/pokemon';
+var mongoDB = 'mongodb://user:supermariokart24@ds135421.mlab.com:35421/mvp-pokemon';
 
 // set up mongoose connection to the mongoDB 
 mongoose.connect(mongoDB);
