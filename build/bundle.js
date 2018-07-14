@@ -20648,6 +20648,15 @@ var PokemonChartComponent = function (_React$Component) {
     value: function favoritePokemon(e) {
       e.preventDefault();
 
+      var currentfavPokemon = this.state.currentPokemon;
+      var favPokemonUrl = this.state.currentPokemonUrl;
+
+      _axios2.default.post('/favorite', { currentfavPokemon: currentfavPokemon, favPokemonUrl: favPokemonUrl }).then(function (res) {
+        console.log('sending your favorite pokemon to express: ', res);
+        console.log('sending your favorite pokemons url to express');
+      }).catch(function (res) {
+        console.log('ERROR sending your favorite pokemon to express ', res);
+      });
       console.log('You have selected your favorite pokemon: ', this.state.currentPokemon);
     }
   }, {

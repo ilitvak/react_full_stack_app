@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyparser = require('body-parser');
 const axios = require('axios');
+const save= require('../database/');
 
 // app is an instance of express
 var app = express();
@@ -29,6 +30,13 @@ app.post('/', (req, res) => {
   })
 })
 
+app.post('/favorite', (req, res) => {
+  let pokemon = req.body;
+  console.log('Posting to Express from client for favs ', pokemon);
+
+  save.save(pokemon);
+  res.send();
+})
 // use a post method to send the users query to an API.
 // http://pokeapi.co/api/v2/pokemon/1/
 // app.post 

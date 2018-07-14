@@ -23,6 +23,18 @@ class PokemonChartComponent extends React.Component {
   favoritePokemon(e){
     e.preventDefault();
 
+    let currentfavPokemon = this.state.currentPokemon;
+    let favPokemonUrl = this.state.currentPokemonUrl;
+
+    axios.post('/favorite', {currentfavPokemon, favPokemonUrl})
+    .then((res) => {
+      console.log('sending your favorite pokemon to express: ', res );
+      console.log('sending your favorite pokemons url to express' );
+
+    })
+    .catch((res) => {
+      console.log('ERROR sending your favorite pokemon to express ', res);
+    })
     console.log('You have selected your favorite pokemon: ', this.state.currentPokemon);
   }
 
