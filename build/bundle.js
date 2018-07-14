@@ -22257,6 +22257,7 @@ var PokemonChartComponent = function (_React$Component) {
       currentPokemonAtk: '',
       currentPokemonDef: '',
       currentPokemonhp: '',
+      currentPokemonAbilities: [],
       renderPokemonBoxComponent: false
     };
 
@@ -22296,7 +22297,8 @@ var PokemonChartComponent = function (_React$Component) {
         var pokemonAtk = response.data.stats[4].base_stat;
         var pokemonDef = response.data.stats[3].base_stat;
         var pokemonHP = response.data.stats[5].base_stat;
-
+        var pokemonAbilities = response.data.abilities;
+        console.log('POKEMON ABILITIES BITCH: ', pokemonAbilities);
         // pushes currently searched pokemon into copied array
         searchPokemon.push(response.data.name);
         console.log('SearchPokemonArr: ', searchPokemon);
@@ -22308,6 +22310,7 @@ var PokemonChartComponent = function (_React$Component) {
           currentPokemonAtk: pokemonAtk,
           currentPokemonDef: pokemonDef,
           currentPokemonhp: pokemonHP,
+          currentPokemonAbilities: pokemonAbilities,
           renderPokemonBoxComponent: true
         }, function () {
           return console.log('Curr Pokemon: ' + _this2.state.currentPokemon + '\n      | ArrOfPokemon: ' + _this2.state.PokemonArr + ' | CurrPokemonUrl: ' + _this2.state.currentPokemonUrl);
@@ -22329,6 +22332,7 @@ var PokemonChartComponent = function (_React$Component) {
           favoritePokemonArr: this.props.favoritePokemonArr,
           favoritePokemon: this.favoritePokemon,
           currentPokemon: this.state.currentPokemon,
+          currentPokemonAbilities: this.state.currentPokemonAbilities,
           currentPokemonUrl: this.state.currentPokemonUrl,
           currentPokemonAtk: this.state.currentPokemonAtk,
           currentPokemonDef: this.state.currentPokemonDef,
@@ -22544,7 +22548,17 @@ var PokemonBoxComponent = function (_React$Component) {
                   null,
                   'Def: ',
                   this.props.currentPokemonDef
-                )
+                ),
+                this.props.currentPokemonAbilities.map(function (ability) {
+                  console.log('ability is: ', ability.ability.name);
+                  return _react2.default.createElement(
+                    'li',
+                    null,
+                    'Skill: ',
+                    ability.ability.name,
+                    ' '
+                  );
+                })
               )
             )
           )

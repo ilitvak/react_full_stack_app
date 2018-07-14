@@ -16,6 +16,7 @@ class PokemonChartComponent extends React.Component {
       currentPokemonAtk: '',
       currentPokemonDef:'',
       currentPokemonhp: '',
+      currentPokemonAbilities: [],
       renderPokemonBoxComponent: false
     }
     
@@ -54,7 +55,8 @@ class PokemonChartComponent extends React.Component {
       let pokemonAtk = response.data.stats[4].base_stat;
       let pokemonDef = response.data.stats[3].base_stat;
       let pokemonHP = response.data.stats[5].base_stat;
-
+      let pokemonAbilities = response.data.abilities;
+      console.log('POKEMON ABILITIES BITCH: ', pokemonAbilities);
       // pushes currently searched pokemon into copied array
       searchPokemon.push(response.data.name);
       console.log('SearchPokemonArr: ', searchPokemon);
@@ -66,6 +68,7 @@ class PokemonChartComponent extends React.Component {
         currentPokemonAtk: pokemonAtk,
         currentPokemonDef: pokemonDef,
         currentPokemonhp: pokemonHP,
+        currentPokemonAbilities: pokemonAbilities,
         renderPokemonBoxComponent: true
       }, () => console.log(
       `Curr Pokemon: ${this.state.currentPokemon}
@@ -87,6 +90,7 @@ class PokemonChartComponent extends React.Component {
           favoritePokemonArr={this.props.favoritePokemonArr}
           favoritePokemon={this.favoritePokemon}
           currentPokemon={this.state.currentPokemon}
+          currentPokemonAbilities={this.state.currentPokemonAbilities}
           currentPokemonUrl={this.state.currentPokemonUrl}
           currentPokemonAtk={this.state.currentPokemonAtk}
           currentPokemonDef={this.state.currentPokemonDef}
